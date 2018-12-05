@@ -1,0 +1,21 @@
+{
+    "python.pythonPath": "/Users/zyp/.virtualenvs/sixu/bin/python",
+    "python.globalModuleInstallation": true,
+    "python.pythonPath": "/Users/zyp/.virtualenvs/fenglin/bin/python",
+    "editor.renderWhitespace": "boundary",
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/*.pyc": true,
+        "**/.DS_Store": true
+    },
+    "python.venvFolders": [
+        "envs",
+        ".pyenv",
+        ".direnv"
+    ],
+    "python.linting.pylintArgs": [
+        "--load-plugins=pylint_django"
+    ]
+}
