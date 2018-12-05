@@ -8,12 +8,14 @@ from django.conf import settings
 from django.db import models
 from django.utils.crypto import get_random_string
 from mall.models import AddressUser
-from mall.models import Commodity
+from mall.models import Commodity, Spec, Color, Stock
 
 
 class Order(models.Model):
     """订单表"""
     commodity = models.ForeignKey(Commodity, verbose_name='商品')
+    spec = models.ForeignKey(Spec, verbose_name='规格')
+    color = models.ForeignKey(Color, verbose_name='颜色')
     addr = models.ForeignKey(AddressUser, verbose_name='订单寄往地址')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='用户')
     proxy_user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='代理人', 
@@ -63,10 +65,11 @@ class Order(models.Model):
             # 只有第一次的时候赋值,当修改的时候保存修改的信息
             self.total_price = self.get_total_price()
             self.total_addition_price = self.get_total_addition_price()
+
             # 减去下单数量
-            if self.commodity.count <= self.count:
-                self.commodity.count -= self.count
-                self.commodity.save()
+            stock = Stock.objects.get(commodity=self.commodity, spec=self.spec, color=self.color)
+            stock.count -= 1
+            stock.save(0)
 
         super(Order, self).save(*args, **kwargs)
 
