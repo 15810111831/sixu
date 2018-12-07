@@ -5,9 +5,5 @@ from django.contrib import admin
 from mall.models import Spec, Color
 
 
-class SpecAdmin(admin.ModelAdmin):
-    model = Spec
-    list_display = ('name', 'color')
-
-    fields = ('name', 'color')
-
+admin.site.register(Spec)
+admin.site.register(Color)

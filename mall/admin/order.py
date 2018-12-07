@@ -8,9 +8,9 @@ class OrderAdmin(admin.ModelAdmin):
 
     search_fields = ('proxy_user', 'code', 'user')
     list_display = ('code', 'addr', 'user', 'proxy_user', 'total_addition_price',
-                    'total_price', 'create_start', 'status', 'user_remark')
+                    'total_price', 'create_time', 'status', 'user_remark')
 
-    readonly_fields = ('create_start','code')
+    readonly_fields = ('create_time','code')
     fieldsets = (
         (
             None, {
@@ -21,7 +21,7 @@ class OrderAdmin(admin.ModelAdmin):
         (
             None,{
             'fields':(
-                'addr', 'total_price', 'create_start'
+                'addr', 'total_price', 'create_time', 'spec', 'color'
                 ),
             }
         ),

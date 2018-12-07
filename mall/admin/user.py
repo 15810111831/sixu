@@ -11,12 +11,13 @@ class UserOpenidInlineAdmin(admin.TabularInline):
 
 class AddressUserInlineAdmin(admin.TabularInline):
     model = AddressUser
-    fields = ('addr', 'zip_code', 'default_index')
+    fields = ('addr', 'zip_code')
 
 
 class UserAdmin(admin.ModelAdmin):
     list_display = ('username', 'date_joined', 'is_active', 'is_staff', 'is_proxy')
     exclude = ('date_joined',)
+    filter_horizontal = ('groups',)
 
     fieldsets = (
         (

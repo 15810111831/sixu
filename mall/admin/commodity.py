@@ -7,12 +7,12 @@ from mall.models import Type
 
 class CommodityImageInlineAdmin(admin.TabularInline):
     model = CommodityImage
-    fields = ('img_path',)
+    fields = ('img_path', 'is_main')
 
 
 class CommodityCommentInlineAdmin(admin.TabularInline):
     model = CommodtyComment
-    fields = ('text', 'approval')
+    fields = ('comment', 'approval')
 
 class CommodityProxyInlineAdmin(admin.TabularInline):
     model = CommodityProxy
@@ -20,7 +20,7 @@ class CommodityProxyInlineAdmin(admin.TabularInline):
 
 class CommodityAdmin(admin.ModelAdmin):
     list_display = ('name', 'price', 'count')
-    fields = ('name','type' ,'price' ,'count' ,'description')
+    fields = ('name','type' ,'price' ,'count' ,'description', 'sale', 'is_active')
     inlines = [CommodityImageInlineAdmin, CommodityProxyInlineAdmin, CommodityCommentInlineAdmin]
 
 

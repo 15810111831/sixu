@@ -14,8 +14,8 @@ from mall.models import Commodity, Spec, Color, Stock
 class Order(models.Model):
     """订单表"""
     commodity = models.ForeignKey(Commodity, verbose_name='商品')
-    spec = models.ForeignKey(Spec, verbose_name='规格')
-    color = models.ForeignKey(Color, verbose_name='颜色')
+    spec = models.ForeignKey(Spec, verbose_name='规格', null=True, blank=True)
+    color = models.ForeignKey(Color, verbose_name='颜色', null=True, blank=True)
     addr = models.ForeignKey(AddressUser, verbose_name='订单寄往地址')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='用户')
     proxy_user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='代理人', 
@@ -32,8 +32,10 @@ class Order(models.Model):
     status = models.SmallIntegerField('订单状态', choices=STATUS_CHOICE, default=0)
 
     user_remark = models.CharField('顾客描述', max_length=200, null=True, blank=True)
-    create_start = models.DateTimeField(
+    create_time = models.DateTimeField(
         '下单时间', auto_now_add=True, blank=True, editable=False)
+
+    pay_time = models.DateTimeField('支付时间', null=True, blank=True)
 
     def create_code(self):
         ''' 创建订单编码，当新建订单时创建不能修改'''
@@ -65,11 +67,12 @@ class Order(models.Model):
             # 只有第一次的时候赋值,当修改的时候保存修改的信息
             self.total_price = self.get_total_price()
             self.total_addition_price = self.get_total_addition_price()
-
+            # 当生成一个订单的时候
+            self.commodity.sale += self.count
             # 减去下单数量
             stock = Stock.objects.get(commodity=self.commodity, spec=self.spec, color=self.color)
-            stock.count -= 1
-            stock.save(0)
+            stock.count -= self.count
+            stock.save()
 
         super(Order, self).save(*args, **kwargs)
 

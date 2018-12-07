@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.db import models
 
 class Color(models.Model):
+    '''颜色表'''
     name = models.CharField('颜色名称', max_length=16)
 
     class Meta:
@@ -12,6 +13,7 @@ class Color(models.Model):
 
 
 class Spec(models.Model):
+    '''尺码表'''
     name = models.CharField('尺码名称', max_length=16)
 
     class Meta:
