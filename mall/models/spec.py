@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 
+
 class Color(models.Model):
     '''颜色表'''
     name = models.CharField('颜色名称', max_length=16)

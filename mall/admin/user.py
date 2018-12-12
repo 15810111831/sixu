@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.contrib import admin
 from mall.models import UserOpenid, AddressUser, User
 
+
 class UserOpenidInlineAdmin(admin.TabularInline):
     model = UserOpenid
     fields = ('openid', 'appid', 'head_img')
@@ -38,6 +39,7 @@ class UserAdmin(admin.ModelAdmin):
     )
 
     inlines = [UserOpenidInlineAdmin, AddressUserInlineAdmin]
+
 
 admin.site.site_header = '思绪万千后台管理'
 admin.site.site_title = '思绪万千'

@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.conf import settings
-from mall.models import User,Spec,Color
+from mall.models import User, Spec, Color
 
 
 class Type(models.Model):
@@ -23,7 +23,7 @@ class Commodity(models.Model):
     '''商品详情表'''
     type = models.ForeignKey(Type, verbose_name='类别')
     name = models.CharField('商品名称', max_length=50)
-    price = models.DecimalField('价格',max_digits=10, decimal_places=2)
+    price = models.DecimalField('价格', max_digits=10, decimal_places=2)
     description = models.TextField('描述', max_length=200)
     count = models.IntegerField('总数量', default=0)
     sale = models.IntegerField('销量', default=0)

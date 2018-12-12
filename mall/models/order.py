@@ -18,8 +18,8 @@ class Order(models.Model):
     color = models.ForeignKey(Color, verbose_name='颜色', null=True, blank=True)
     addr = models.ForeignKey(AddressUser, verbose_name='订单寄往地址')
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='用户')
-    proxy_user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='代理人', 
-        null=True, blank=True, related_name='proxy_user')
+    proxy_user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='代理人',
+                                   null=True, blank=True, related_name='proxy_user')
     code = models.CharField('订单号', max_length=16, blank=True)
     count = models.IntegerField('商品数量', default=1)
     total_price = models.DecimalField('总价', max_digits=10, decimal_places=2, blank=True, null=True)
@@ -75,7 +75,6 @@ class Order(models.Model):
             stock.save()
 
         super(Order, self).save(*args, **kwargs)
-
 
     class Meta:
         verbose_name = '订单表'
